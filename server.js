@@ -19,3 +19,27 @@ app.use(bodyParser.json()); // Using Body Parser
 app.set('jwtTokenSecret', '95FEE00F5ED3C7650C40286EE4FB44DC38C55DDFAD1B692D80443F21F4007E2146547E4F04D1EE4495D6CD597DBD70545B6AFA6F219BAC5D2E700A7DFDD3D474'); // JWT Secret
 var server = app.listen(port); // Set Port
 
+var con = null; 
+mysql.createConnection({
+    host: getenv('IP'),
+    user: getenv('C9_USER'),
+    password: "",
+    database: "c9"
+}).then(function(connection) { con = connection });
+
+    app.post('/addRequest',function(req,res){
+        console.log(req.body)
+   user.addRequest(req,res,con)
+});
+app.post('/updateRequest',function(req,res){
+    
+});
+app.get('/getRequests',function(req,res){
+    
+});
+app.get('/students',function(req, res) {
+    
+});
+app.get('/teacher',function(req,res){
+    
+});
