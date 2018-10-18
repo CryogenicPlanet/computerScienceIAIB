@@ -1,0 +1,27 @@
+{
+  "name": "computerScienceIA",
+  "version": "0.1.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CryogenicPlanet/computerScienceIAIB.git"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "connect": "^3.6.5",
+    "cors": "^2.8.4",
+    "cryptr": "^3.0.0",
+    "express": "~3.2.4",
+    "getenv": "^0.7.0",
+    "jsonwebtoken": "^8.1.0",
+    "nodemailer": "^4.4.1",
+    "promise-mysql": "^3.1.3",
+    "randomstring": "^1.1.5",
+    "sanitizer": "^0.1.3",
+    "sha512": "0.0.1"
+  }
+}
