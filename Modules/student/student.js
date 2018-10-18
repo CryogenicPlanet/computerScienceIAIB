@@ -6,20 +6,20 @@ var exports = module.exports = {};
 
 exports.addRequest = async function(req,res,con){
     console.log(req.body)
-     var uid = req.body.uid;
-     var teacher = req.body.tid;
+     var usid = req.body.usid;
+     var teacher = req.body.utid;
      var givenReason = req.body.reason;
-     var coordinator = req.body.cid;
+     var coordinator = req.body.ucid;
      var random = randomstring.generate(11)
       uniqueHash = sha512(random)
      uniqueHash = uniqueHash.toString('hex');
-    let [getTeacherEmail] = await con.query(`SELECT Email FROM Teacher WHERE TID=${teacher}`)
+    let [getTeacherEmail] = await con.query(`SELECT Email FROM Teacher WHERE UTID=${teacher}`)
     var teacherEmail = getTeacherEmail.Email;
-    let [getCoordinatorEmail] = await con.query(`SELECT Email FROM Coordinators WHERE CID=${coordinator}`)
+    let [getCoordinatorEmail] = await con.query(`SELECT Email FROM Coordinators WHERE UCID=${coordinator}`)
     var coordinatorEmail = getCoordinatorEmail.Email;
-    if(uid){
-        let [student] = await con.query(`SELECT * FROM Students WHERE UID=${uid}`)
-        addRequestDb(con,uid,coordinator,teacher)
+    if(usid){
+        let [student] = await con.query(`SELECT * FROM Students WHERE USID=${usid}`)
+        addRequestDb(con,usid,coordinator,teacher)
         sendRequestEmail(teacherEmail,coordinatorEmail,student.Email,res,givenReason,student.Name)
         
     } else {
@@ -29,17 +29,17 @@ exports.addRequest = async function(req,res,con){
      var OakId = req.body.OakId;
      var BusNumber = req.body.busNumber;
      let addStudent = await con.query(`INSERT INTO Students (Name,Class,OAKID,BusNumber,Email) VALUES ("${Name}",${Class},"${OakId}",${BusNumber},"${email}")`)
-     let [studentId] = await con.query(`SELECT UID FROM Students WHERE OAKID=${OakId}`)
-     var uniqueID = studentId.UID;
+     let [studentId] = await con.query(`SELECT USID FROM Students WHERE OAKID=${OakId}`)
+     var uniqueID = studentId.USID;
      addRequestDb(con,uniqueID,coordinator,teacher)
      sendRequestEmail(teacherEmail,coordinatorEmail,email,res,givenReason,Name)
     }
 }
-let addRequestDb = async function(con,uid,cid,tid){
-    let request = await con.query(`INSERT INTO Requests (UID,CID,TID,UniqueHash) VALUES (${uid},${cid},${tid},"${uniqueHash}")`)
+let addRequestDb = async function(con,usid,ucid,utid){
+    let request = await con.query(`INSERT INTO Requests (Student,Coordinator,Teacher,UniqueHash) VALUES (${usid},${ucid},${utid},"${uniqueHash}")`)
 }
 let sendRequestEmail = function(teacherEmail,coordinatorEmail,studentEmail,res,reason,studentName){
-    var message = `<h3>Dear Sir/Ma'am</h3>
+    var message = `<h5>Dear Sir/Ma'am</h5>
     <p>Your Student, ${studentName} has requested your permission to leave school early. Giving the following reason : ${reason} </p>
     <p> Please follow click <a href="https://compscience-ia-cryogenicplanet.c9users.io/UpdateRequest?hash=${uniqueHash}"> here!</a> or go to <a href="https://compscience-ia-cryogenicplanet.c9users.io/UpdateRequest?hash=${uniqueHash}">https://compscience-ia-cryogenicplanet.c9users.io/UpdateRequest?hash=${uniqueHash}</a> to accept or deny their request </p>
     
