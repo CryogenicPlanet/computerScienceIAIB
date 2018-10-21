@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="../Modules/main.js"></script>
+    <div class="container">
+        <div class="row">
+            <div class="col s10 offset-s1">
+                <div class="card grey darken-4">
+                    <div class="card-content white-text">
+                        <span class="card-title">Submit Request to Leave Early</span>
+                        <p>
+                            <div class="row">
+                                <div class="col s12">
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <i class="material-icons prefix">perm_identity</i>
+                                            <input type="text" id="autocomplete-input" class="autocomplete white-text">
+                                            <label for="autocomplete-input">Enter Student ID (Example XXORBXXXX)</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">You will find your Id in this system only if you have used it before, if you haven't don't worry just fill out your details and we'll keep track of your Id for next time</div>
+                        </p>
+                        <p>
+                            <div class="row">
+                                <form class="col s12" id="studentDetails">
+                                    <div class="row">
+                                        <div class="col s6">
+                                            <p>Name :</p>
+                                        </div>
+                                        <div class="col s6">
+                                            <p>Email :</p>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s6">
+                                            <input disabled placeholder="Name" id="name" type="text" class="validate white-text">
+                                        </div>
+
+                                        <div class="input-field col s6">
+                                            <input disabled id="email" placeholder="Email" type="email" class="validate white-text">
+                                            <label for="email"></label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s4">
+                                            <p>BusNumber :</p>
+                                        </div>
+                                        <div class="col s4">
+                                            <p>Class :</p>
+                                        </div>
+                                        <div class="col s4">
+                                            <p>Section :</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s4">
+                                            <input disabled id="busNumber" placeholder="busNumber" type="number" class="validate white-text">
+                                            <label for="busNumber"></label>
+                                        </div>
+                                        <div class="input-field col s4">
+                                            <input placeholder="Placeholder" disabled id="class" type="number" class="validate white-text">
+                                            <label for="class"></label>
+                                        </div>
+                                        <div class="input-field col s4">
+                                            <input id="section" disabled type="text" class="validate white-text">
+                                            <label for="section"></label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <textarea id="reason" required class="materialize-textarea"></textarea>
+                                                <label for="reason" class="white-text">Reason for leaving early</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input id="usid" hidden type="number" class="validate">
+
+                                    <div class="row">
+                                        <div class="col s12">
+                                            <div class="row">
+                                                <div class="input-field col s6"></div>
+                                                <input type="text" id="teacher-input" class="autocomplete white-text">
+                                                <label for="teacher-input">Enter Class Teacher Name</label>
+                                                <div class="input-field col s6"></div>
+                                                <input type="text" id="coordinator-input" class="autocomplete white-text">
+                                                <label for="coordinator-input">Enter Coordinator Name</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                    </div>
+
+                    <button class="btn waves-effect waves-light" disabled id="submitRequest" type="submit" onclick="sendRequest()" name="action">Submit
+                                        <i class="material-icons right">send</i>
+                                     </button>
+                    </form>
+                </div>
+                </p>
+            </div>
+            <div class="card-action">
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+</body>
+
+</html>
