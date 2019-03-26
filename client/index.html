@@ -16,7 +16,7 @@
     <!-- Compiled and minified JavaScript -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="../Modules/main.js"></script>
+    <script src="./main.js"></script>
     <div class="container">
         <div class="row">
             <div class="col s10 offset-s1">
@@ -35,7 +35,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">You will find your Id in this system only if you have used it before, if you haven't don't worry just fill out your details and we'll keep track of your Id for next time</div>
+                            <div class="row">You will find your Id in this system only if you have used it before, if you haven't don't worry just fill out your details and we'll keep track of your Id for next time and just pick <b>Not Found</b> this time.</b>
+                            </div>
                         </p>
                         <p>
                             <div class="row">
@@ -51,11 +52,11 @@
                                     </div>
                                     <div class="row">
                                         <div class="input-field col s6">
-                                            <input disabled placeholder="Name" id="name" type="text" class="validate white-text">
+                                            <input disabled placeholder="Name" id="name" type="text" class="validate white-text" required>
                                         </div>
 
                                         <div class="input-field col s6">
-                                            <input disabled id="email" placeholder="Email" type="email" class="validate white-text">
+                                            <input disabled id="email" placeholder="Email" type="email" class="validate white-text" required>
                                             <label for="email"></label>
                                         </div>
                                     </div>
@@ -72,55 +73,46 @@
                                     </div>
                                     <div class="row">
                                         <div class="input-field col s4">
-                                            <input disabled id="busNumber" placeholder="busNumber" type="number" class="validate white-text">
+                                            <input disabled id="busNumber" placeholder="busNumber" type="number" class="validate white-text" required>
                                             <label for="busNumber"></label>
                                         </div>
                                         <div class="input-field col s4">
-                                            <input placeholder="Placeholder" disabled id="class" type="number" class="validate white-text">
+                                            <input placeholder="Placeholder" disabled id="class" type="number" class="validate white-text" required>
                                             <label for="class"></label>
                                         </div>
                                         <div class="input-field col s4">
-                                            <input id="section" disabled type="text" class="validate white-text">
+                                            <input id="section" disabled type="text" class="validate white-text" required>
                                             <label for="section"></label>
+                                        </div>
+                                    </div>
+                                    <div class="row" id="schoolId">
+                                        <div class="input-field col s12">
+                                            <input placeholder="" id="oakId" type="text" class="validate white-text" required>
+                                            <label for="oakId">Enter Student ID (Example XXORBXXXX)</label>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="row">
-                                            <div class="input-field col s12">
-                                                <textarea id="reason" required class="materialize-textarea"></textarea>
+                                            <div class="input-field col s12 white-text">
+                                                <textarea id="reason" required class="materialize-textarea white-text"></textarea>
                                                 <label for="reason" class="white-text">Reason for leaving early</label>
                                             </div>
                                         </div>
                                     </div>
                                     <input id="usid" hidden type="number" class="validate">
-
-                                    <div class="row">
-                                        <div class="col s12">
-                                            <div class="row">
-                                                <div class="input-field col s6"></div>
-                                                <input type="text" id="teacher-input" class="autocomplete white-text">
-                                                <label for="teacher-input">Enter Class Teacher Name</label>
-                                                <div class="input-field col s6"></div>
-                                                <input type="text" id="coordinator-input" class="autocomplete white-text">
-                                                <label for="coordinator-input">Enter Coordinator Name</label>
-                                            </div>
-                                        </div>
-                                    </div>
                             </div>
-                    </div>
 
-                    <button class="btn waves-effect waves-light" disabled id="submitRequest" type="submit" onclick="sendRequest()" name="action">Submit
+                            </form>
+                            <button class="btn waves-effect waves-light" disabled id="submitRequest" onclick="sendRequest()">Submit
                                         <i class="material-icons right">send</i>
                                      </button>
-                    </form>
+
+                    </div>
+
+                    </p>
                 </div>
-                </p>
-            </div>
-            <div class="card-action">
             </div>
         </div>
-    </div>
-    </div>
     </div>
 </body>
 
