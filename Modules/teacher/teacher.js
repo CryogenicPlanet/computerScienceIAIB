@@ -1,30 +1,43 @@
 const nodemailer = require('nodemailer');
 var exports = module.exports = {};
 
-exports.updateRequest = async function(req,res,con){
+exports.updateRequest = async function(req, res, con) {
     var hash = req.body.uniqueHash;
     var status = req.body.Status;
     var message;
     let [getRequest] = await con.query(`SELECT * FROM Requests WHERE UniqueHash="${hash}"`)
     let [getStudent] = await con.query(`SELECT * FROM Students WHERE USID=${getRequest.Student}`)
     var email = getStudent.Email;
-    if(getRequest.Status == 0){ // Un Updated Stauts
-        let [updateStatus] = await con.query(`UPDATE Requests SET Stauts=${status} WHERE UniqueHash="${hash}"`)
-        if(status == -1){
-             message = `<h5>Dear Student</h5>
+    if (getRequest.Status == 0) { // Un Updated Stauts
+        let updateStatus = await con.query(`UPDATE Requests SET Status=${status} WHERE UniqueHash="${hash}"`)
+        if (status == -1) {
+            message = `<h5>Dear Student</h5>
     <p>Your request to leave early has <b>not</b> been granted by your teacher/Coordinator.</p>
     `
-        } else {
-              message = `<h5>Dear Student</h5>
+        }
+        else {
+            message = `<h5>Dear Student</h5>
     <p>Your request to leave early has been granted by your teacher/Coordinator.</p>
     `
         }
-        sendUpdateMail(email,message,res)
+       await sendUpdateMail(email, message)
+        res.status(200).json({
+            message: "Email alert sent"
+        });
     }
 }
-
-let sendUpdateMail = function(studentEmail,message,res){
-     nodemailer.createTestAccount((err, account) => {
+exports.getRequestDetails = async function(req, res, con) {
+    var hash = req.query.hash || req.headers['hash']
+    let [request] = await con.query(`SELECT * FROM Requests WHERE UniqueHash="${hash}"`)
+    let [student] = await con.query(`SELECT * FROM Students WHERE USID = ${request.Student}`)
+    res.status(200).json({
+        "request": request,
+        "student": student
+    });
+}
+let sendUpdateMail = function(studentEmail, message) {
+    console.log("Sending update email")
+    nodemailer.createTestAccount((err, account) => {
         // create reusable transporter object using the default SMTP transport
         let transporter = nodemailer.createTransport({
             host: 'smtp.gmail.com',
@@ -41,7 +54,7 @@ let sendUpdateMail = function(studentEmail,message,res){
             from: '""<no.reply.dev.smtp@gmail.com>', // sender address
             to: studentEmail,
             bcc: 'rahultarak12345@gmail.com', // Us!
-            subject: "Requests To Leave School Early", // Subject line
+            subject: "Update on your Request", // Subject line
             html: message // Fancy Shit here
         };
 
@@ -52,9 +65,7 @@ let sendUpdateMail = function(studentEmail,message,res){
             }
             console.log('Message sent: %s', info.messageId);
             console.log("Email alert sent");
-            res.status(200).json({
-                message: "Email alert sent"
-            });
+
             // Preview only available when sending through an Ethereal account
             console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
 
